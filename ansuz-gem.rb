@@ -9,16 +9,16 @@ class AnsuzGem
   end
 
   def get_path(path)
-    file = open("#{base_url}/pages/#{path}.xml") do |f|
+    file = open("#{base_url}/pages/#{path}") do |f|
       f.read
     end
-    out = Nokogiri::XML(file)
+    out = Nokogiri::HTML(file)
   end
 
   # This method gets the very first content page plugin's contents
   # FIXME: make it more robust
   def get_contents_for(path)
     out = get_path(path)
-    out.css("page page-plugins page-plugin contents").inner_html
+    out.css("#content").inner_html
   end
 end
